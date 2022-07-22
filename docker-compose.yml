@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: ./php/Dockerfile
+    container_name: local_web
+    volumes:
+      - ./src:/var/www/html
+      - ./apache/sites-available:/etc/apache2/sites-available
+    ports:
+      - 8080:80
+    env_file: env/.env.mysql
+
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0.26
+    container_name: local_db
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: local_db
+      MYSQL_USER: local_user
+      MYSQL_PASSWORD: local_password
+      MYSQL_ROOT_PASSWORD: local_password
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
