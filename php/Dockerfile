@@ -1,4 +1,4 @@
-FROM php:8.0apache
+FROM php:8.0-apache
 
 RUN rm /etc/apt/preferences.d/no-debian-php
 
